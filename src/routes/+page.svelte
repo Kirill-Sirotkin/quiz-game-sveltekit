@@ -1,9 +1,22 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
     import Avatar from "../components/Avatar.svelte";
     import AvatarPanel from "../components/AvatarPanel.svelte";
     import InputField from "../components/InputField.svelte";
     import { current_user } from "../stores/current_user_store";
+    import { sendMessage, socket_message, socket } from "../stores/websocket_store";
+
+    let message_from_socket = "";
+    let ws: WebSocket;
+
+    onMount(()=> {
+        socket_message.subscribe(value => {
+            message_from_socket = value;
+            console.log(message_from_socket);
+        });
+        socket.subscribe(value => ws = value);
+    });
 
     function handle_avatar_interact(event: { detail: { avatar: any; }; }) {
         selected_avatar = event.detail.avatar;
@@ -24,6 +37,7 @@
         input_disabled = true;
         submit_icon = "⏳";
         console.log("submitting: " + input_text + ", " + selected_avatar);
+        sendMessage("submit", ws);
         setTimeout(() => {
             goto("/123");}, 
             500
