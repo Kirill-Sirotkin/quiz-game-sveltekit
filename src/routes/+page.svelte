@@ -18,6 +18,8 @@
             return;
         }
 
+        localStorage.setItem("token", "123");
+
         current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:true, userColor:"#DEADFE"} );
         input_disabled = true;
         submit_icon = "⏳";
@@ -45,15 +47,15 @@
 
     let is_name_forbidden = false;
     $: if (input_text.slice(input_text.length - 2) === "xc" ||
-        input_text.slice(input_text.length - 2) === "hc" ||
-        input_text.slice(input_text.length - 2) === "hs") {
+        input_text?.slice(input_text?.length - 2) === "hc" ||
+        input_text?.slice(input_text?.length - 2) === "hs") {
         is_name_forbidden = true;
     } else {
         is_name_forbidden = false;
     }
 
     let is_name_too_long = false;
-    $: if (input_text.length > 10) {
+    $: if (input_text?.length > 10) {
         is_name_too_long = true;
     } else {
         is_name_too_long = false;

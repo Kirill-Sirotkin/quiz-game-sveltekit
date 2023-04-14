@@ -3,30 +3,36 @@
     import { current_user } from '../../stores/current_user_store.js';
     import PlayerCard from '../../components/PlayerCard.svelte';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
     export let data;
 
-    try {
-        if (localStorage.getItem("token") === null) {
+    onMount(() => {
+        if (browser) {
+        if (!localStorage.getItem("token")) {
             console.log("No token!");
             goto("/" + data.room_id + "/join");
-        }   
-    } catch (error) {
-        goto("/" + data.room_id + "/join");
-    }
+        } else {
+            console.log("all ok");
+        }
+        } else {
+        goto("/" + data.room_id);
+        }
+	});
 
     let users: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string}[];
     let c_user: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string};
 
     user_list.subscribe((value) => {
-        users = value;
-    });
-    current_user.subscribe((value) => {
-        c_user = value;
-    });
+            users = value;
+            });
+        current_user.subscribe((value) => {
+            c_user = value;
+            });
 
     let is_user_host = false;
-    $: if (users.find(element => element.id === c_user.id)?.isHost) {
+    $: if (users?.find(element => element?.id === c_user.id)?.isHost) {
         is_user_host = true;
     } else {
         is_user_host = false;
@@ -68,9 +74,8 @@
     .list-and-start-button {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
         box-sizing: border-box;
-        padding-bottom: 1rem;
+        gap: 1rem;
     }
     .secondary-wrapper {
         box-sizing: border-box;
@@ -113,6 +118,7 @@
         background-color: rgba(0, 0, 0, 0.2);
         margin-left: 0.5rem;
         margin-right: 0.5rem;
+        margin-bottom: 1rem;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         color: beige;
     }

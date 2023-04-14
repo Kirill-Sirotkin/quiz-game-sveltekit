@@ -8,12 +8,12 @@
     <div class="avatar-wrapper">
         <Avatar
             settings_button={false} 
-            avatar_image={user.avatarPath}
-            --frame-color ={user.userColor}
+            avatar_image={user?.avatarPath}
+            --frame-color ={user?.userColor}
         ></Avatar>
     </div>
     <div class="name-wrapper">
-        {user.name}
+        {user?.name}
     </div>
     <div class="score-wrapper">
         score:
@@ -21,7 +21,7 @@
             0
         </div>
     </div>
-    {#if user.isHost}
+    {#if user?.isHost}
         <div class="host-icon">
             👑
         </div>
