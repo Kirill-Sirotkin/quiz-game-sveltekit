@@ -22,7 +22,7 @@
 
         localStorage.setItem("token", "123");
 
-        current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:false, userColor:"#DEADFE"} );
+        current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:false, roomId:'', userColor:"#DEADFE"} );
         input_disabled = true;
         submit_icon = "⏳";
         console.log("submitting: " + input_text + ", " + selected_avatar);

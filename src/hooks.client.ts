@@ -1,6 +1,5 @@
 import { socket, socket_message } from './stores/websocket_store';
-
-console.log('APP!!!!!!');
+import { handle_message } from './services/message_receive';
 
 const ws = new WebSocket('ws://109.68.212.208/wsapi');
 
@@ -19,11 +18,8 @@ const ws_connection = new Promise(function (resolve, reject) {
 
 socket.update(() => ws);
 
-ws.addEventListener('message', (message: any) => {
-	// Parse the incoming message here
+ws.addEventListener('message', (message) => {
 	const data: string = JSON.parse(message.data);
-	// Update the state. That's literally it. This can happen from anywhere:
-	// we're not in a component, and there's no nested context.
 	socket_message.update(() => data);
 });
 
@@ -31,7 +27,11 @@ ws_connection.then(() => {
 	setInterval(() => {
 		console.log('heartbeat');
 		if (ws.readyState <= 1) {
-			ws.send('message');
+			ws.send(JSON.stringify({ heartbeat: {} }));
 		}
 	}, 10000);
+});
+
+socket_message.subscribe((message) => {
+	handle_message(message);
 });

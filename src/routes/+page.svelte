@@ -7,14 +7,9 @@
     import { current_user } from "../stores/current_user_store";
     import { sendMessage, socket_message, socket } from "../stores/websocket_store";
 
-    let message_from_socket = "";
     let ws: WebSocket;
 
     onMount(()=> {
-        socket_message.subscribe(value => {
-            message_from_socket = value;
-            console.log(message_from_socket);
-        });
         socket.subscribe(value => ws = value);
     });
 
@@ -33,11 +28,11 @@
 
         localStorage.setItem("token", "123");
 
-        current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:true, userColor:"#DEADFE"} );
+        current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:true, roomId:'', userColor:"#DEADFE"} );
         input_disabled = true;
         submit_icon = "⏳";
         console.log("submitting: " + input_text + ", " + selected_avatar);
-        sendMessage("submit", ws);
+        sendMessage(JSON.stringify({createRoom: {name:input_text, avatarPath:selected_avatar}}), ws);
         setTimeout(() => {
             goto("/123");}, 
             500

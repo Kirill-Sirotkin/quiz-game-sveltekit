@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { user_list } from '../../stores/dummy_users_store.js';
     import { current_user } from '../../stores/current_user_store.js';
     import PlayerCard from '../../components/PlayerCard.svelte';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+    import { list } from '../../stores/user_list_store.js';
 
     export let data;
 
@@ -21,15 +21,15 @@
         }
 	});
 
-    let users: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string}[];
-    let c_user: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string};
+    let users: {id:string, name:string, avatarPath:string, isHost:boolean, roomId:string, userColor:string}[];
+    let c_user: {id:string, name:string, avatarPath:string, isHost:boolean, roomId:string, userColor:string};
 
-    user_list.subscribe((value) => {
-            users = value;
-            });
-        current_user.subscribe((value) => {
-            c_user = value;
-            });
+    list.subscribe((value) => {
+        users = value;
+        });
+    current_user.subscribe((value) => {
+        c_user = value;
+        });
 
     let is_user_host = false;
     $: if (users?.find(element => element?.id === c_user.id)?.isHost) {
@@ -37,8 +37,6 @@
     } else {
         is_user_host = false;
     }
-
-    user_list.update((list) => [...list, c_user]);
 </script>
 
 <div class="wrapper">
