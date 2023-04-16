@@ -8,3 +8,5 @@ export const current_user = writable({
 	isHost: true,
 	userColor: ''
 });
+
+export const current_token = writable('');

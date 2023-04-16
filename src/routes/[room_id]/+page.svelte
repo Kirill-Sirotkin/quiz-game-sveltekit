@@ -1,23 +1,42 @@
 <script lang="ts">
-    import { current_user } from '../../stores/current_user_store.js';
+    import { current_token, current_user } from '../../stores/current_user_store.js';
     import PlayerCard from '../../components/PlayerCard.svelte';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
     import { list } from '../../stores/user_list_store.js';
+	import { sendMessage, socket } from '../../stores/websocket_store.js';
+	import jwtDecode from 'jwt-decode';
+	import { is_token_user_info } from '../../services/message_receive.js';
 
     export let data;
 
+    let ws: WebSocket;
+
     onMount(() => {
+        socket.subscribe(value => ws = value);
         if (browser) {
-        if (!localStorage.getItem("token")) {
-            console.log("No token!");
-            goto("/" + data.room_id + "/join");
-        } else {
-            console.log("all ok");
-        }
-        } else {
-        goto("/" + data.room_id);
+            const token = localStorage.getItem("token");
+
+            if (token === null) {
+                console.log("No token!");
+                goto("/" + data.room_id + "/join");
+            } else {
+                console.log("reconnecting");
+
+                console.log('waiting for ws');
+
+                sendMessage(JSON.stringify({reconnectRoom: {}, token:token}), ws);
+                
+                const token_info = jwtDecode(token);
+
+                if (is_token_user_info(token_info)) {
+                    current_token.update(() => token);
+                    current_user.update(() => token_info);
+                }
+
+                console.log('sent reconnect command');
+            }
         }
 	});
 

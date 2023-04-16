@@ -1,4 +1,16 @@
 import { list } from '../stores/user_list_store';
+import jwtDecode from 'jwt-decode';
+import { current_token, current_user } from '../stores/current_user_store';
+
+type TokenUserInfo = {
+	id: string;
+	name: string;
+	avatarPath: string;
+	exp: number;
+	isHost: boolean;
+	roomId: string;
+	userColor: string;
+};
 
 type ErrorResponse = {
 	response: string;
@@ -83,18 +95,35 @@ export function handle_message(message: string) {
 }
 
 function handle_error(resp: ErrorResponse) {
-	// const data: ErrorResponse = resp;
 	console.log(resp.data.errorText);
 }
 
 function handle_createRoom(resp: CreateRoomResponse) {
 	console.log('create!: ' + resp);
 	list.update(() => resp.data.userList);
+
+	const token_info = jwtDecode(resp.data.token);
+
+	if (is_token_user_info(token_info)) {
+		current_token.update(() => resp.data.token);
+		current_user.update(() => token_info);
+	}
+}
+
+export function is_token_user_info(value: unknown): value is TokenUserInfo {
+	return value !== null && value !== undefined && typeof value === 'object' && 'id' in value;
 }
 
 function handle_joinRoom(resp: JoinRoomResponse) {
 	console.log('join!: ' + resp);
 	list.update(() => resp.data.userList);
+
+	const token_info = jwtDecode(resp.data.token);
+
+	if (is_token_user_info(token_info)) {
+		current_token.update(() => resp.data.token);
+		current_user.update(() => token_info);
+	}
 }
 
 function handle_userList(resp: UpdateUserList) {

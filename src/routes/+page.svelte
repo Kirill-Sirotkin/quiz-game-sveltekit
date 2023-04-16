@@ -4,13 +4,16 @@
     import Avatar from "../components/Avatar.svelte";
     import AvatarPanel from "../components/AvatarPanel.svelte";
     import InputField from "../components/InputField.svelte";
-    import { current_user } from "../stores/current_user_store";
+    import { current_token, current_user } from "../stores/current_user_store";
     import { sendMessage, socket_message, socket } from "../stores/websocket_store";
-
+	import { browser } from "$app/environment";
+    
     let ws: WebSocket;
+    let token: string;
 
     onMount(()=> {
         socket.subscribe(value => ws = value);
+        current_token.subscribe(value => token = value);
     });
 
     function handle_avatar_interact(event: { detail: { avatar: any; }; }) {
@@ -26,18 +29,19 @@
             return;
         }
 
-        localStorage.setItem("token", "123");
-
         current_user.update((user) => user = {id:"4", name:input_text, avatarPath:selected_avatar, isHost:true, roomId:'', userColor:"#DEADFE"} );
         input_disabled = true;
         submit_icon = "⏳";
         console.log("submitting: " + input_text + ", " + selected_avatar);
         sendMessage(JSON.stringify({createRoom: {name:input_text, avatarPath:selected_avatar}}), ws);
-        setTimeout(() => {
-            goto("/123");}, 
-            500
-        );
     }
+
+    current_user.subscribe((user)=> {
+        if (browser) {
+            localStorage.setItem("token", token);
+            goto("/" + user.roomId);
+        }
+    });
 
     let choosing_avatar = false;
     let selected_avatar = "default.png"
