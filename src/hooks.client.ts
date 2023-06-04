@@ -38,5 +38,5 @@ await ws_connection.then(() => {
 		if (ws.readyState <= 1) {
 			ws.send(JSON.stringify({ heartbeat: {} }));
 		}
-	}, 500);
+	}, 10000);
 });
