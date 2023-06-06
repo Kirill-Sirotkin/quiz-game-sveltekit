@@ -7,25 +7,6 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div class="background">%sveltekit.body%</div>
+		%sveltekit.body%
 	</body>
 </html>
-
-<style>
-	body {
-        display: flex;
-		height: 100vh;
-		margin: 0;
-        background: linear-gradient(180deg, rgba(39,60,88,1) 0%, rgba(52,76,108,1) 50%, rgba(39,60,88,1) 100%);
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	}
-    .background {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 4rem;
-        height: 100%;
-        width: 100%;
-    }
-</style>
