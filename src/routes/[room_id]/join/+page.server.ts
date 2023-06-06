@@ -1,5 +1,3 @@
-import type { RouteParams } from '../$types.js';
-
-export function load({ params }): RouteParams {
+export function load({ params }) {
 	return params;
 }

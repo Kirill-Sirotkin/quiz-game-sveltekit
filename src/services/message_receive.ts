@@ -95,7 +95,13 @@ export function handle_message(message: string) {
 }
 
 function handle_error(resp: ErrorResponse) {
-	console.log(resp.data.errorText);
+	console.log(`${resp.data.errorText}; ${resp.data.errorCode}`);
+	if (resp.data.errorCode === 2) {
+		// localStorage.clear();
+	}
+	if (resp.data.errorText === 'Room does not exist') {
+		// localStorage.clear();
+	}
 }
 
 function handle_createRoom(resp: CreateRoomResponse) {
