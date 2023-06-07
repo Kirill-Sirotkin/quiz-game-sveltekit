@@ -1,18 +1,8 @@
 <script lang="ts">
-	import { themeStore } from "../stores/theme_store";
-	import { browser } from "$app/environment";
-	import type { Theme } from "../types/Theme";
+	import { getSystemTheme, themeStore } from "../stores/theme_store";
 
     $: theme = $themeStore === 'system' ? getSystemTheme() : $themeStore;
-
-    const getSystemTheme = (): Theme => {
-        if (!browser) return 'dark';
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark'
-        } else {
-            return 'light'
-        }
-    }
+    
     const switchToDark = () => {
         themeStore.set('dark');
     }
@@ -27,11 +17,11 @@
     </div>
     <div class="buttons-wrapper">
         {#if theme === 'light'}
-            <img src="/src/content/lightTheme/sun_icon.svg" alt="theme select icon" on:click={switchToDark} on:keydown={switchToDark} />
+            <img class="settings-icon" src="/src/content/lightTheme/sun_icon.svg" alt="theme select icon" on:click={switchToDark} on:keydown={switchToDark} />
         {:else}
-            <img src="/src/content/darkTheme/moon_icon.svg" alt="theme select icon" on:click={switchToLight} on:keydown={switchToLight} />
+            <img class="settings-icon" src="/src/content/darkTheme/moon_icon.svg" alt="theme select icon" on:click={switchToLight} on:keydown={switchToLight} />
         {/if}
-        <img src="/src/content/{theme}Theme/globe_icon.svg" alt="language select icon" />
+        <img class="settings-icon" src="/src/content/{theme}Theme/globe_icon.svg" alt="language select icon" />
     </div>
 </div>
 
@@ -47,6 +37,8 @@
         padding: 1rem;
         margin-left: 0.5rem;
         color: var(--text-inverse);
+        cursor: pointer;
+        font-weight: bolder;
     }
     .buttons-wrapper {
         display: flex;
@@ -55,8 +47,13 @@
         gap: 1.5rem;
         margin-right: 1rem;
     }
-    img {
+    .settings-icon {
         width: 36px;
         height: 36px;
+        transition-duration: 0.08s;
+        cursor: pointer;
+    }
+    .settings-icon:hover {
+        transform: scale(1.2);
     }
 </style>

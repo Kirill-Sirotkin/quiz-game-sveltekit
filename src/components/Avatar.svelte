@@ -3,29 +3,30 @@
 
 	const dispatch = createEventDispatcher();
 
-    export let settings_button = true;
+    export let settingsButton = true;
     export let interactable = false;
-    export let avatar_image = "default.png";
+    export let avatarImage = "default.png";
 
-    $: avatar_path = "/src/content/" + avatar_image;
+    $: avatarPath = "/src/content/" + avatarImage;
 
-    function avatar_interact() {
+    const handleAvatarInteract = () => {
         dispatch('interact', {
-            avatar: avatar_image
+            avatar: avatarImage
         });
     }
-    function avatar_settings() {
+    const handleAvatarSettings = () => {
         dispatch('settings', {});
     }
 </script>
 
 <div class="wrapper">
-    <img src={avatar_path} style="--frame-color=rgb(0, 27, 66)" alt="avatar">
+    <img src={avatarPath} style="--frame-color=rgb(0, 27, 66)" alt="avatar">
     {#if interactable}
-    <button class="interact-hitbox" on:click={avatar_interact}></button>
+    <button class="interact-hitbox {interactable ? "pointer" : "" }" on:click={handleAvatarInteract}></button>
+    <!-- <button class="interact-hitbox" on:click={handleAvatarInteract}></button> -->
     {/if}
-    {#if settings_button}
-    <button class="settings-button" on:click={avatar_settings}>
+    {#if settingsButton}
+    <button class="settings-button pointer" on:click={handleAvatarSettings}>
         ⚙️
     </button>
     {/if}
@@ -51,6 +52,9 @@
         height: 100%;
         background-color: rgba(186, 205, 218, 0);
     }
+    .pointer {
+        cursor: pointer;
+    }
     .settings-button {
         display: flex;
         justify-content: center;
@@ -58,7 +62,6 @@
         position: absolute;
         top: 6rem;
         left: 6rem;
-        cursor: pointer;
         width: 3rem;
         height: 3rem;
         line-height: 3rem;

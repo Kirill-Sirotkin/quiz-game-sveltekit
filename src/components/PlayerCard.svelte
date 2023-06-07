@@ -7,8 +7,8 @@
 <div class="player-card">
     <div class="avatar-wrapper">
         <Avatar
-            settings_button={false} 
-            avatar_image={user?.avatarPath}
+            settingsButton={false} 
+            avatarImage={user?.avatarPath}
             --frame-color ={user?.userColor}
         ></Avatar>
     </div>
