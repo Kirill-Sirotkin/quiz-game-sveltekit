@@ -65,7 +65,7 @@
         border-radius: 50%;
         text-align: center;
         font-size: 2rem;
-        border: 4px solid rgb(0, 27, 66);
+        border: 4px solid var(--text-primary);
         background-color: rgb(255, 255, 255);
         transition: transform .1s ease-in-out;
     }

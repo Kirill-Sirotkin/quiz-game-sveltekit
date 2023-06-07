@@ -1,4 +1,9 @@
 body {
+	--color-primary: #f7e8e4;
+	--color-secondary: #e1c8c0;
+	--color-accent: #ff8543;
+	--text-primary: #0b0a0f;
+	--text-inverse: #f7e8e4;
 	height: 100vh;
 	margin: 0;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

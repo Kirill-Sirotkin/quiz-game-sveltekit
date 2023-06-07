@@ -1,25 +1,32 @@
 <script lang="ts">
-    import Button from "./Button.svelte";
+    import Avatar from "./Avatar.svelte";
+	import AvatarPanel from "./AvatarPanel.svelte";
+
+    let selectedAvatar = "default.png";
+    let choosingAvatar = false;
+
+    const handleAvatarInteract = (event: { detail: { avatar: any; }; }) => {
+        selectedAvatar = event.detail.avatar;
+        choosingAvatar = false;
+    }
 </script>
 
-<form on:submit|preventDefault={()=> alert("BOOM!")} class="form-wrapper">
-    <div>Enter your nickname:</div>
-    <input name="userName" autocomplete="off" />
-    <Button on:click={()=> console.log("hello!")} button_text="START!"></Button>
-</form>
+{#if !choosingAvatar}
+    <div class="avatar-wrapper">
+        <Avatar 
+            settings_button={true} 
+            avatar_image={selectedAvatar} 
+            on:settings={() => {choosingAvatar = true;}}
+            --frame-color = "var(--text-primary)"
+        />
+    </div>
+{:else}
+    <AvatarPanel on:interact={handleAvatarInteract} />
+{/if}
 
 <style>
-    .form-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        font-size: 2rem;
-        color: azure;
-        padding: 2rem;
-        border-radius: 0.5rem;
-        background: linear-gradient(180deg, rgba(24, 0, 56, 1) 0%, rgba(34,0,81, 1) 50%, rgba(24,0,56, 1) 100%);
-        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    .avatar-wrapper {
+        width: 8rem;
+        height: 8rem;
     }
 </style>

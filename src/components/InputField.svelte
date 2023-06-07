@@ -23,7 +23,6 @@
         font-size: 1.2rem;
     }
     .form-input {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         width: 15rem;
         border-radius: 0.25rem;
         font-size: 1.5rem;

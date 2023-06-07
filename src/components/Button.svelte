@@ -16,6 +16,5 @@
         text-decoration: none;
         display: inline-block;
         font-size: 2rem;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
 </style>
