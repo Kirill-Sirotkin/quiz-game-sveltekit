@@ -1,13 +1,21 @@
 <script lang="ts">
+	import { useLanguageStore } from "../stores/language_store";
 	import { getSystemTheme, themeStore } from "../stores/theme_store";
+	import { Language } from "../types/Language";
 
     $: theme = $themeStore === 'system' ? getSystemTheme() : $themeStore;
+
+    let selectingLanguage = false;
+    const langStore = useLanguageStore();
     
     const switchToDark = () => {
         themeStore.set('dark');
     }
     const switchToLight = () => {
         themeStore.set('light');
+    }
+    const toggleLanguageSelect = () => {
+        selectingLanguage = !selectingLanguage;
     }
 </script>
 
@@ -17,11 +25,63 @@
     </div>
     <div class="buttons-wrapper">
         {#if theme === 'light'}
-            <img class="settings-icon" src="/src/content/lightTheme/sun_icon.svg" alt="theme select icon" on:click={switchToDark} on:keydown={switchToDark} />
+            <img 
+                class="settings-icon" 
+                src="/src/content/lightTheme/sun_icon.svg" 
+                alt="theme select icon" 
+                on:click={switchToDark} 
+                on:keydown={switchToDark} 
+            />
         {:else}
-            <img class="settings-icon" src="/src/content/darkTheme/moon_icon.svg" alt="theme select icon" on:click={switchToLight} on:keydown={switchToLight} />
+            <img 
+                class="settings-icon" 
+                src="/src/content/darkTheme/moon_icon.svg" 
+                alt="theme select icon" 
+                on:click={switchToLight} 
+                on:keydown={switchToLight} 
+            />
         {/if}
-        <img class="settings-icon" src="/src/content/{theme}Theme/globe_icon.svg" alt="language select icon" />
+        <div class="language-select">
+            <img 
+                class="settings-icon" 
+                src="/src/content/{theme}Theme/globe_icon.svg" 
+                alt="language select icon" 
+                on:click={toggleLanguageSelect} 
+                on:keydown={toggleLanguageSelect} 
+            />
+            {#if selectingLanguage}
+                <div class="language-select-menu">
+                    <div class="language-select-options">
+                        <img 
+                            class="settings-icon" 
+                            src="/src/content/gb.svg" 
+                            alt="language select icon" 
+                            on:click={() => {
+                                toggleLanguageSelect();
+                                langStore.setLanguage(Language.english)
+                            }} 
+                            on:keydown={() => {
+                                toggleLanguageSelect();
+                                langStore.setLanguage(Language.english)
+                            }} 
+                        />
+                        <img 
+                            class="settings-icon" 
+                            src="/src/content/ru.svg" 
+                            alt="language select icon" 
+                            on:click={() => {
+                                toggleLanguageSelect();
+                                langStore.setLanguage(Language.russian)
+                            }} 
+                            on:keydown={() => {
+                                toggleLanguageSelect();
+                                langStore.setLanguage(Language.russian)
+                            }} 
+                        />
+                    </div>
+                </div>
+            {/if}
+        </div>
     </div>
 </div>
 
@@ -54,6 +114,43 @@
         cursor: pointer;
     }
     .settings-icon:hover {
-        transform: scale(1.2);
+        transform: scale(1.15);
+    }
+    .language-select {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .language-select-menu {
+        position: absolute;
+        right: -12px;
+        top: 4rem;
+        width: 4rem;
+        height: 7rem;
+        overflow: hidden;
+    }
+    .language-select-options {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        width: 3.75rem;
+        height: 6.25rem;
+        background-color: rgba(108, 108, 108, 0.5);
+        border-radius: 0.5rem;
+        border: 2px solid var(--text-primary);
+        animation: slide 0.1s forwards;
+    }
+    @keyframes slide {
+        0% {
+            right: -10rem;
+        }
+        100% {
+            right: 0;
+        }
     }
 </style>

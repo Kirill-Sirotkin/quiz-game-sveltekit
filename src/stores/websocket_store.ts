@@ -6,7 +6,7 @@ const wsStore = writable<WebSocket>(undefined);
 const responseStore = writable<string>('');
 const statusStore = writable<Status>(Status.NotReady);
 
-export const createWebSocketStore = () => {
+export const useWebSocketStore = () => {
 	return {
 		subscribeResponse: responseStore.subscribe,
 		subscribeStatus: statusStore.subscribe,

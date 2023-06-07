@@ -1,4 +1,4 @@
-import { createWebSocketStore } from './stores/websocket_store';
+import { useWebSocketStore } from './stores/websocket_store';
 
-const wsStore = createWebSocketStore();
+const wsStore = useWebSocketStore();
 wsStore.startWebsocket();

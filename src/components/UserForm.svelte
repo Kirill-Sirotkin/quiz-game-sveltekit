@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { useLanguageStore } from "../stores/language_store";
 	import { getSystemTheme, themeStore } from "../stores/theme_store";
     import Avatar from "./Avatar.svelte";
 	import AvatarPanel from "./AvatarPanel.svelte";
@@ -10,6 +11,11 @@
     let inputDisabled = false;
     
     $: theme = $themeStore === 'system' ? getSystemTheme() : $themeStore;
+
+    const langStore = useLanguageStore();
+    const langStoreValue = {
+		subscribe: langStore.subscribe,
+	}
 
     const handleAvatarInteract = (event: { detail: { avatar: any; }; }) => {
         selectedAvatar = event.detail.avatar;
@@ -34,7 +40,7 @@
             bind:inputText
             isDisabled = {inputDisabled}
             formText=""
-            formPlaceholder="Enter your name"
+            formPlaceholder={$langStoreValue.enterNamePlaceholder}
         />
         <img class="submit-name-button" src="/src/content/{theme}Theme/arrow_right_circle_icon.svg" alt="submit name button" />
     </div>
