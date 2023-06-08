@@ -1,14 +1,13 @@
 import { get, writable } from 'svelte/store';
 
 import { Status } from '../types/Status';
+import { handle_message } from '../services/message_receive';
 
 const wsStore = writable<WebSocket>(undefined);
-const responseStore = writable<string>('');
 const statusStore = writable<Status>(Status.NotReady);
 
 export const useWebSocketStore = () => {
 	return {
-		subscribeResponse: responseStore.subscribe,
 		subscribeStatus: statusStore.subscribe,
 		sendCommand: (msg: string) => {
 			if (get(statusStore) !== Status.Ready) {
@@ -27,7 +26,7 @@ export const useWebSocketStore = () => {
 
 			ws.addEventListener('message', (message) => {
 				const data: string = JSON.parse(message.data);
-				responseStore.set(data);
+				handle_message(data);
 			});
 			const ws_connection = new Promise((resolve, reject) => {
 				ws.onopen = () => {

@@ -6,6 +6,9 @@
 	import UserForm from "../components/UserForm.svelte";
 	import { Status } from "../types/Status";
 	import Loader from "../components/Loader.svelte";
+	import { goto } from "$app/navigation";
+	import { current_user } from "../stores/current_user_store";
+	import { sendCreateRoomMsg } from "../services/message_send";
 
     const wsStore = useWebSocketStore();
     const wsStatusStore: Readable<Status> = {
@@ -15,12 +18,19 @@
     $: switch($appStateStore) {
         case AppState.Room:
             console.log("Going to room...");
+            goto("/" + $current_user.roomId);
             break;
     };
+
+    const handleFormSubmit = (event: { detail: { avatar: string; name: string }; }) => {
+        sendCreateRoomMsg({name: event.detail.name, avatarPath: event.detail.avatar});
+        localStorage.setItem('lastName', event.detail.name);
+        localStorage.setItem('lastAvatar', event.detail.avatar);
+    }
 </script>
 
 {#if $wsStatusStore === Status.Ready}
-    <UserForm />
+    <UserForm on:submitUserForm={handleFormSubmit} />
 {:else}
     <Loader />
 {/if}

@@ -11,7 +11,7 @@
             {formText}
         </div>
     {/if}
-    <input class="form-input" type="text" disabled={isDisabled} bind:value={inputText} maxlength="15" placeholder={formPlaceholder} />
+    <input class="form-input" type="text" disabled={isDisabled} bind:value={inputText} maxlength="10" placeholder={formPlaceholder} />
 </div>
 
 <style>

@@ -97,8 +97,8 @@
         padding: 1rem;
         margin-left: 0.5rem;
         color: var(--text-inverse);
-        cursor: pointer;
         font-weight: bolder;
+        cursor: default;
     }
     .buttons-wrapper {
         display: flex;

@@ -19,16 +19,15 @@
     }
 </script>
 
-<div class="wrapper">
+<div class="avatar-wrapper">
     <img src={avatarPath} style="--frame-color=rgb(0, 27, 66)" alt="avatar">
     {#if interactable}
-    <button class="interact-hitbox {interactable ? "pointer" : "" }" on:click={handleAvatarInteract}></button>
-    <!-- <button class="interact-hitbox" on:click={handleAvatarInteract}></button> -->
+        <button class="interact-hitbox {interactable ? "pointer" : "" }" on:click={handleAvatarInteract}></button>
     {/if}
     {#if settingsButton}
-    <button class="settings-button pointer" on:click={handleAvatarSettings}>
-        ⚙️
-    </button>
+        <button class="settings-button pointer" on:click={handleAvatarSettings}>
+            ⚙️
+        </button>
     {/if}
 </div>
 
@@ -45,7 +44,7 @@
         border-color: var(--frame-color);
         border-radius: 1rem;
     }
-    .wrapper {
+    .avatar-wrapper {
         display: flex;
         position: relative;
         width: 100%;

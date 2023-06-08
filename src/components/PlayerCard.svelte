@@ -1,7 +1,13 @@
 <script lang="ts">
+	import { useLanguageStore } from "../stores/language_store";
     import Avatar from "./Avatar.svelte";
 
     export let user: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string};
+
+    const langStore = useLanguageStore();
+    const langStoreValue = {
+        subscribe: langStore.subscribe,
+    }
 </script>
 
 <div class="player-card">
@@ -16,7 +22,7 @@
         {user?.name}
     </div>
     <div class="score-wrapper">
-        score:
+        {$langStoreValue.score}:
         <div>
             0
         </div>
@@ -34,13 +40,14 @@
         align-items: center;
         position: relative;
         gap: 0.5rem;
-        background-color: rgb(98, 98, 155);
+        background-color: var(--color-primary);
         border-radius: 0.5rem;
-        border: 4px solid;
+        border: 3px solid;
         border-style: outset;
-        border-color: rgb(42, 29, 77);
+        border-color: var(--text-primary);
         padding: 0.5rem;
         box-sizing: border-box;
+        color: var(--text-primary);
     }
     .avatar-wrapper {
         width: 4rem;
