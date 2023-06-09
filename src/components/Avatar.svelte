@@ -7,7 +7,7 @@
     export let interactable = false;
     export let avatarImage = "default.png";
 
-    $: avatarPath = "/src/content/" + avatarImage;
+    $: avatarPath = "/content/" + avatarImage;
 
     const handleAvatarInteract = () => {
         dispatch('interact', {
