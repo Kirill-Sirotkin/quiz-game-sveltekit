@@ -84,7 +84,7 @@
     .timer {
         position: absolute;
         top: 4rem;
-        right: 1rem;
+        left: 1rem;
         color: var(--text-primary);
         font-size: 4rem;
     }
