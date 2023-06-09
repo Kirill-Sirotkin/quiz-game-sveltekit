@@ -1,7 +1,9 @@
 <script lang="ts">
 	import BottomBar from "../components/BottomBar.svelte";
-import TopBar from "../components/TopBar.svelte";
-import { themeStore } from "../stores/theme_store";
+    import TopBar from "../components/TopBar.svelte";
+    import { themeStore } from "../stores/theme_store";
+
+    export const prerender = true;
 </script>
 
 <svelte:head>
