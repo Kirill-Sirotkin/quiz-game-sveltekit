@@ -6,7 +6,7 @@ import { themeStore } from "../stores/theme_store";
 
 <svelte:head>
     <meta name="color-scheme" content={$themeStore === 'system' ? 'light dark' : $themeStore } />
-    <link rel="stylesheet" href={`/src/styles/${$themeStore}Theme.css`} />
+    <link rel="stylesheet" href={`../src/styles/${$themeStore}Theme.css`} />
     <title>Quiz Game</title>
 </svelte:head>
 <div class="app-layout">
