@@ -27,7 +27,7 @@
         {#if theme === 'light'}
             <img 
                 class="settings-icon" 
-                src="/src/content/lightTheme/sun_icon.svg" 
+                src="/content/lightTheme/sun_icon.svg" 
                 alt="theme select icon" 
                 on:click={switchToDark} 
                 on:keydown={switchToDark} 
@@ -35,7 +35,7 @@
         {:else}
             <img 
                 class="settings-icon" 
-                src="/src/content/darkTheme/moon_icon.svg" 
+                src="/content/darkTheme/moon_icon.svg" 
                 alt="theme select icon" 
                 on:click={switchToLight} 
                 on:keydown={switchToLight} 
@@ -44,7 +44,7 @@
         <div class="language-select">
             <img 
                 class="settings-icon" 
-                src="/src/content/{theme}Theme/globe_icon.svg" 
+                src="/content/{theme}Theme/globe_icon.svg" 
                 alt="language select icon" 
                 on:click={toggleLanguageSelect} 
                 on:keydown={toggleLanguageSelect} 
@@ -54,7 +54,7 @@
                     <div class="language-select-options">
                         <img 
                             class="settings-icon" 
-                            src="/src/content/gb.svg" 
+                            src="/content/gb.svg" 
                             alt="language select icon" 
                             on:click={() => {
                                 toggleLanguageSelect();
@@ -67,7 +67,7 @@
                         />
                         <img 
                             class="settings-icon" 
-                            src="/src/content/ru.svg" 
+                            src="/content/ru.svg" 
                             alt="language select icon" 
                             on:click={() => {
                                 toggleLanguageSelect();

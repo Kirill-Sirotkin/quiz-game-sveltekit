@@ -9,7 +9,7 @@
 		margin: 0;
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		background-color: rgb(11, 11, 16);
-		background-image: url('/src/content/repeated-square-dark.webp');
+		background-image: url('/content/repeated-square-dark.webp');
 		animation: bg-move linear infinite 45s;
 	}
 	@keyframes bg-move {
@@ -29,7 +29,7 @@
 		margin: 0;
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		background-color: rgb(11, 11, 16);
-		background-image: url('/src/content/repeated-square.webp');
+		background-image: url('/content/repeated-square.webp');
 		animation: bg-move linear infinite 45s;
 	}
 	@keyframes bg-move {

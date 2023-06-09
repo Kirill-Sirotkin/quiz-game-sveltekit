@@ -87,7 +87,7 @@
         <input type="submit" value="" disabled={inputDisabled} />
         <img 
             class="submit-name-button" 
-            src="/src/content/{theme}Theme/arrow_right_circle_icon.svg" 
+            src="/content/{theme}Theme/arrow_right_circle_icon.svg" 
             alt="submit name button" 
             on:click={submitUser}
             on:keydown={submitUser}

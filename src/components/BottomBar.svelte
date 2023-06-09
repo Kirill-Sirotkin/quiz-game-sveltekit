@@ -19,7 +19,7 @@
                 </div>
                 <img 
                     class="close-button" 
-                    src="/src/content/{theme}Theme/x_circle_icon.svg" 
+                    src="/content/{theme}Theme/x_circle_icon.svg" 
                     alt="close error alert button" 
                     on:click={() => {errorStore.removeError(err.errorId)}}
                     on:keydown={() => {errorStore.removeError(err.errorId)}}
