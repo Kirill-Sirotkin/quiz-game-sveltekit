@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { useLanguageStore } from "../stores/language_store";
+	import { scores } from "../stores/game_store";
     import Avatar from "./Avatar.svelte";
+	import { current_user } from "../stores/current_user_store";
 
     export let user: {id:string, name:string, avatarPath:string, isHost:boolean, userColor:string};
 
@@ -8,6 +10,9 @@
     const langStoreValue = {
         subscribe: langStore.subscribe,
     }
+
+    $: playerIndex = $scores.players.indexOf(user.id);
+    $: score = playerIndex >= 0 ? $scores.scores[playerIndex] : 0;
 </script>
 
 <div class="player-card">
@@ -24,7 +29,7 @@
     <div class="score-wrapper">
         {$langStoreValue.score}:
         <div>
-            0
+            {score}
         </div>
     </div>
     {#if user?.isHost}

@@ -36,7 +36,7 @@
     $: submitError = $langStoreValue.enterNameError;
     $: switch($appStateStore) {
         case AppState.Error:
-            console.log("error from user form");
+            // console.log("error from user form");
             inputDisabled = false;
             break;
     }

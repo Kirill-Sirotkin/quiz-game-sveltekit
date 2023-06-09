@@ -17,3 +17,13 @@ export const sendJoinRoomMsg = (userInfo: { name: string; avatarPath: string; ro
 export const sendReconnectRoomMsg = (token: string) => {
 	wsStore.sendCommand(JSON.stringify({ reconnectRoom: {}, token: token }));
 };
+export const sendStartGameMsg = (gameInfo: { packPath: string; token: string }) => {
+	wsStore.sendCommand(
+		JSON.stringify({ startGame: { packPath: gameInfo.packPath }, token: gameInfo.token })
+	);
+};
+export const sendAnswerMsg = (answerInfo: { num: number; token: string }) => {
+	wsStore.sendCommand(
+		JSON.stringify({ writeAnswer: { answer: answerInfo.num }, token: answerInfo.token })
+	);
+};

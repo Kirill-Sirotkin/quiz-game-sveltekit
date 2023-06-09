@@ -11,12 +11,12 @@ export const useWebSocketStore = () => {
 		subscribeStatus: statusStore.subscribe,
 		sendCommand: (msg: string) => {
 			if (get(statusStore) !== Status.Ready) {
-				console.log('WS NOT READY');
+				// console.log('WS NOT READY');
 				return;
 			}
 			const ws = get(wsStore);
 			ws.send(msg);
-			console.log('Sending something...');
+			// console.log('Sending something...');
 		},
 		startWebsocket: async () => {
 			if (get(statusStore) === Status.Ready) return;

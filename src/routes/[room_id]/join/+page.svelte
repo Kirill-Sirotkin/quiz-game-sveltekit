@@ -19,7 +19,7 @@
 
     $: switch($appStateStore) {
         case AppState.Room:
-            console.log("Going to room...");
+            // console.log("Going to room...");
             goto("/" + $current_user.roomId);
             break;
         case AppState.Error:

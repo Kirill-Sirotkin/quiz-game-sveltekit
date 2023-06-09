@@ -6,14 +6,16 @@ const englishTranslations = {
 	enterNameError: 'Please enter a name',
 	players: 'Players',
 	startGame: 'Start game',
-	score: 'score'
+	score: 'score',
+	waiting: 'Waiting for host...'
 };
 const russianTranslations = {
 	enterNamePlaceholder: 'Введите свое имя',
 	enterNameError: 'Пожалуйста, введите имя',
 	players: 'Игроки',
 	startGame: 'Начать игру',
-	score: 'счет'
+	score: 'счет',
+	waiting: 'Ожидание лидера группы...'
 };
 
 const { subscribe, set } = writable(englishTranslations);

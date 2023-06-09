@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import PlayerCard from "../../components/PlayerCard.svelte";
-	import { current_user } from "../../stores/current_user_store";
+	import { current_token, current_user } from "../../stores/current_user_store";
 	import { useLanguageStore } from "../../stores/language_store";
 	import { list } from "../../stores/user_list_store";
 	import { browser } from "$app/environment";
 	import { goto } from "$app/navigation";
 	import Loader from "../../components/Loader.svelte";
-	import { sendReconnectRoomMsg } from "../../services/message_send";
+	import { sendReconnectRoomMsg, sendStartGameMsg } from "../../services/message_send";
 	import { appStateStore } from "../../stores/app_state_store";
 	import { AppState } from "../../types/AppState";
 	import { useWebSocketStore } from "../../stores/websocket_store";
@@ -15,6 +15,7 @@
 	import { Status } from "../../types/Status";
 	import jwtDecode from "jwt-decode";
 	import { is_token_user_info } from "../../services/message_receive";
+	import GameArea from "../../components/GameArea.svelte";
 
     export let data;
     let loading = true;
@@ -26,7 +27,7 @@
 
     const checkToken = () => {
         if (!browser) return;
-        console.log($appStateStore)
+        // console.log($appStateStore)
 
         const token = localStorage.getItem('token');
         if (!token) {
@@ -39,7 +40,11 @@
 
         if (is_token_user_info(token_info)) {
             current_user.set(token_info);
+            current_token.set(token);
         }
+    }
+    const startGame = () => {
+        sendStartGameMsg({packPath:"./packs/dates.json", token: $current_token});
     }
 
     $: switch($wsStatusStore) {
@@ -78,13 +83,13 @@
                 {/each}
             </div>
             {#if isUserHost}
-                <button class="start-button">
+                <button class="start-button" on:click={startGame}>
                     {$langStoreValue.startGame}
                 </button>
             {/if}
         </div>
         <div class="secondary-wrapper game-area">
-
+            <GameArea />
         </div>
     </div>
 {/if}
@@ -131,6 +136,9 @@
     .game-area {
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .start-button {
         display: flex;
