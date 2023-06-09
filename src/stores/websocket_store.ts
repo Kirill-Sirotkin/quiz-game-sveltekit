@@ -21,7 +21,7 @@ export const useWebSocketStore = () => {
 		startWebsocket: async () => {
 			if (get(statusStore) === Status.Ready) return;
 
-			const ws = new WebSocket('wss://109.68.212.208/wsapi');
+			const ws = new WebSocket('ws://109.68.212.208/wsapi');
 			statusStore.set(Status.Loading);
 
 			ws.addEventListener('message', (message) => {
